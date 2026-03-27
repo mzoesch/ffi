@@ -6,8 +6,8 @@ This tool generates and analyzes LLVM bitcode to detect potential bugs caused by
 
 Information about bugs detected by this tool are listed in [Trophy Case](trophy-case/README.md).
 
-## Requirements
-
+## Requirements (native only)
+* Requirements only apply if building the project outside of Docker and thus in a native environment.
 * Rust nightly, as specified in [rust-toolchain](rust-toolchain).
 * `rustc-dev` and `llvm-tools-preview`:
 
@@ -30,6 +30,12 @@ Information about bugs detected by this tool are listed in [Trophy Case](trophy-
     $ git clone https://github.com/lizhuohua/rust-ffi-checker.git
     
     $ cd rust-ffi-checker
+    ```
+
+    or install with a Docker environment
+    ```sh
+    $ docker build -t clang13-env .
+    $ docker run -it -v $(pwd):/host clang13-env
     ```
 
 2. Build & Install
