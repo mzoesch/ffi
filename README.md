@@ -36,7 +36,7 @@ Information about bugs detected by this tool are listed in [Trophy Case](trophy-
 
     ```sh
     # You can build and install the cargo subcommand:
-    $ cargo install --path .
+    $ cargo install --path . --locked
     
     # Or, you can only build the checker itself:
     $ cargo build
@@ -69,8 +69,10 @@ Before using this tool, make sure your Rust project compiles without any errors 
 # If you have installed the cargo subcommand:
 $ cargo clean; cargo ffi-checker
 
-# Or, you can directly run the checker binary
-$ cargo clean; path/to/cargo-ffi-checker ffi-checker
+# Or, you can directly run the checker binary with either cargo:
+$ cargo clean; cargo run --manifest-path path/to/cargo-ffi-checker/Cargo.toml --bin cargo-ffi-checker (--profile dev) -- ffi-checker
+# or without it:
+$ cargo clean; LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH path/to/cargo-ffi-checker(.exe) ffi-checker
 ```
 
 You can also set the threshold of warnings to filter out false positives.

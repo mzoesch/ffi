@@ -15,7 +15,7 @@ name = "entry_collector"
 name = "analyzer"
 
 [dependencies]
-llvm-sys = "130"
+llvm-sys = { version = "130", features = ["no-llvm-linking"] }
 llvm-ir = { version = "0.8.1", features = ["llvm-13"] }
 llvm-ir-analysis = { version = "0.3.1", features = ["llvm-13"] }
 bit-set = "0.5.2"
