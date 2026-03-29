@@ -141,6 +141,10 @@ fn main() {
         info!("2. Argument rustc detected, constructing cargo commands and setting environment variables...");
         // This arm is executed when the 1st arm runs `cargo check` with the `RUSTC_WRAPPER` env var set to `cargo-ffi-checker`.
         inside_cargo_rustc();
+    } else if let Some("/usr/bin/rustc") = std::env::args().nth(1).as_ref().map(AsRef::as_ref) {
+        info!("2. Argument rustc detected, constructing cargo commands and setting environment variables...");
+        // This arm is executed when the 1st arm runs `cargo check` with the `RUSTC_WRAPPER` env var set to `cargo-ffi-checker`.
+        inside_cargo_rustc();
     } else {
         show_error(
             "`cargo-ffi-checker` must be called with either `ffi-checker` or `rustc` as first argument.".to_string(),
