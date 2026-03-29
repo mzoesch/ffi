@@ -2,10 +2,13 @@
 
 # Runs the ffi-checker on all projects located in /examples/
 # -v for verbose output
+# -t for trace output
 
+TRACE=0
 VERBOSE=0
-while getopts "v" opt; do
-    case $opt in 
+while getopts "tv" opt; do
+    case $opt in
+        t) TRACE=1 ;;
         v) VERBOSE=1 ;;
         *) ;;
     esac
@@ -18,11 +21,14 @@ for p in $PROJ; do
     pushd $p > /dev/null
     IDK=$(cargo clean 2>&1)
 
-    if ((VERBOSE)); then
+    if ((TRACE)); then
         OUTPUT=$(RUST_BACKTRACE=full RUST_LOG=info cargo ffi-checker 2>&1)
-        echo "---- $p ----"
+        echo "========== $p =========="
         echo "$OUTPUT"
-        echo "------------"
+    elif ((VERBOSE)); then
+        OUTPUT=$(RUST_BACKTRACE=full RUST_LOG=info cargo ffi-checker 2>&1)
+        echo "========== $p =========="
+        echo "$OUTPUT" | grep -Fi "bug info: " 2>&1
     else
         OUTPUT=$(cargo ffi-checker 2>&1)
     fi
